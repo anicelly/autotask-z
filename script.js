@@ -1,6 +1,33 @@
 let tarefas = JSON.parse(localStorage.getItem("tarefasZ")) || [];
 let graficoStatus;
 
+const mensagensGoku = [
+  "Oi, eu sou o Goku! ⚡",
+  "Clique em Tarefas para criar uma missão!",
+  "Use o Kanban para arrastar tarefas!",
+  "Tarefas vencidas ficam em alerta vermelho!",
+  "Ative o tema escuro para aumentar seu poder!",
+  "Clique em Exportar para baixar o relatório!",
+  "As missões para hoje aparecem no Kanban central!",
+  "Organize tudo e alcance o nível máximo! 🔥"
+];
+
+let mensagemAtual = 0;
+
+function trocarMensagemGoku() {
+  const fala = document.getElementById("falaAssistente");
+
+  if (!fala) return;
+
+  fala.innerText = mensagensGoku[mensagemAtual];
+
+  mensagemAtual++;
+
+  if (mensagemAtual >= mensagensGoku.length) {
+    mensagemAtual = 0;
+  }
+}
+
 function entrar() {
   const usuario = document.getElementById("usuario").value;
   const senha = document.getElementById("senha").value;
@@ -9,6 +36,7 @@ function entrar() {
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
     mostrar("dashboard");
+    trocarMensagemGoku();
   } else {
     alert("Usuário ou senha inválidos!");
   }
@@ -26,6 +54,22 @@ function mostrar(pagina) {
 
   document.getElementById(pagina).style.display = "block";
   atualizarSistema();
+  atualizarFalaPorPagina(pagina);
+}
+
+function atualizarFalaPorPagina(pagina) {
+  const fala = document.getElementById("falaAssistente");
+
+  if (!fala) return;
+
+  const mensagens = {
+    dashboard: "Aqui você acompanha o poder total das suas missões!",
+    tarefas: "Cadastre novas missões com data, prioridade e responsável!",
+    alertas: "Aqui aparecem missões vencidas e urgentes!",
+    kanban: "Arraste as missões entre as colunas para organizar tudo!"
+  };
+
+  fala.innerText = mensagens[pagina] || "Vamos organizar suas missões! ⚡";
 }
 
 function adicionarTarefa() {
@@ -51,6 +95,10 @@ function adicionarTarefa() {
   salvar();
   limparCampos();
   atualizarSistema();
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = "Missão adicionada com sucesso! 🔥";
+
   alert("Missão adicionada com sucesso!");
 }
 
@@ -58,12 +106,18 @@ function concluirTarefa(index) {
   tarefas[index].concluida = true;
   salvar();
   atualizarSistema();
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = "Muito bem! Missão concluída! ⚡";
 }
 
 function reabrirTarefa(index) {
   tarefas[index].concluida = false;
   salvar();
   atualizarSistema();
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = "Missão reaberta. Vamos finalizar depois!";
 }
 
 function excluirTarefa(index) {
@@ -71,6 +125,9 @@ function excluirTarefa(index) {
     tarefas.splice(index, 1);
     salvar();
     atualizarSistema();
+
+    const fala = document.getElementById("falaAssistente");
+    if (fala) fala.innerText = "Missão removida do radar!";
   }
 }
 
@@ -94,6 +151,7 @@ function classeStatus(status) {
 
 function listarTarefas() {
   const lista = document.getElementById("listaTarefas");
+
   if (!lista) return;
 
   lista.innerHTML = "";
@@ -143,6 +201,7 @@ function atualizarDashboard() {
 
 function listarAlertas() {
   const lista = document.getElementById("listaAlertas");
+
   if (!lista) return;
 
   lista.innerHTML = "";
@@ -184,6 +243,7 @@ function listarAlertas() {
 
 function atualizarGrafico() {
   const ctx = document.getElementById("graficoStatus");
+
   if (!ctx) return;
 
   if (graficoStatus) graficoStatus.destroy();
@@ -242,6 +302,9 @@ function atualizarKanban() {
 
 function arrastar(event, index) {
   event.dataTransfer.setData("index", index);
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = "Arraste para mudar o status da missão!";
 }
 
 function permitirSoltar(event) {
@@ -265,10 +328,16 @@ function soltar(event, novoStatus) {
 
   salvar();
   atualizarSistema();
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = `Missão movida para: ${novoStatus}!`;
 }
 
 function toggleTema() {
   document.body.classList.toggle("dark-mode");
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = "Tema alterado! Nível de poder atualizado! ⚡";
 }
 
 function ativarNotificacoes() {
@@ -312,6 +381,9 @@ function exportarRelatorio() {
   link.href = URL.createObjectURL(arquivo);
   link.download = "relatorio-autotask-z.txt";
   link.click();
+
+  const fala = document.getElementById("falaAssistente");
+  if (fala) fala.innerText = "Relatório exportado com sucesso!";
 }
 
 function carregarDadosExemplo() {
@@ -366,6 +438,7 @@ function limparCampos() {
 
 function formatarData(data) {
   if (!data) return "";
+
   const partes = data.split("-");
   return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
@@ -380,6 +453,9 @@ function atualizarSistema() {
 
 carregarDadosExemplo();
 atualizarSistema();
+trocarMensagemGoku();
+
+setInterval(trocarMensagemGoku, 5000);
 
 setTimeout(() => {
   verificarAlertasAutomaticos();

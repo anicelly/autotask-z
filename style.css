@@ -131,6 +131,7 @@ aside button:hover {
 main {
   margin-left: 260px;
   padding: 35px;
+  padding-bottom: 170px;
 }
 
 .pagina {
@@ -283,6 +284,42 @@ th {
   cursor: grabbing;
 }
 
+.goku-assistente {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  animation: flutuar 2s infinite ease-in-out;
+}
+
+.goku-real {
+
+  width: 170px;
+
+  image-rendering: pixelated;
+
+  filter:
+    drop-shadow(0 0 12px #ffea00)
+    drop-shadow(0 0 22px #fb8500);
+
+}
+
+.fala-assistente {
+  width: 250px;
+  background: #fffdf7;
+  color: #111827;
+  border: 4px solid #111827;
+  border-radius: 18px;
+  padding: 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  line-height: 1.7;
+  box-shadow: 5px 5px 0 #111827;
+}
+
 .dark-mode {
   background: radial-gradient(circle at top, #023047, #020617, #000);
   color: #f8fafc;
@@ -340,6 +377,18 @@ th {
   border-right-color: #38bdf8;
 }
 
+.dark-mode .fala-assistente {
+  background: #111827;
+  color: white;
+  border-color: #38bdf8;
+  box-shadow: 0 0 20px #38bdf8;
+}
+
+.dark-mode .goku-pixel {
+  border-color: #38bdf8;
+  box-shadow: 0 0 25px #38bdf8;
+}
+
 @keyframes aura {
   from {
     opacity: 0;
@@ -351,6 +400,20 @@ th {
     opacity: 1;
     transform: scale(1);
     filter: brightness(1);
+  }
+}
+
+@keyframes flutuar {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -377,5 +440,22 @@ th {
 
   h1 {
     font-size: 18px;
+  }
+
+  .goku-assistente {
+    right: 10px;
+    bottom: 10px;
+    transform: scale(0.85);
+  }
+
+  .fala-assistente {
+    width: 190px;
+    font-size: 8px;
+  }
+
+  .goku-pixel {
+    width: 75px;
+    height: 75px;
+    font-size: 42px;
   }
 }

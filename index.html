@@ -1,125 +1,278 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>AutoTask Z</title>
+
   <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
+
 <body>
 
-<div id="login" class="login">
-  <h1>AutoTask Z</h1>
-  <p>Automação com energia máxima</p>
-  <input id="usuario" placeholder="Usuário">
-  <input id="senha" type="password" placeholder="Senha">
-  <button onclick="entrar()">Entrar</button>
-  <small>Usuário: admin | Senha: 123</small>
-</div>
+  <div id="login" class="login">
 
-<div id="app" class="app">
-  <aside>
-    <h2>AutoTask Z</h2>
+    <h1>AutoTask Z</h1>
 
-    <div class="top-controls">
-      <button onclick="toggleTema()">🌙 Tema</button>
-      <button onclick="ativarNotificacoes()">🔔 Alertas</button>
+    <p>Automação com energia máxima ⚡</p>
+
+    <input id="usuario" placeholder="Usuário">
+
+    <input id="senha" type="password" placeholder="Senha">
+
+    <button onclick="entrar()">
+      Entrar
+    </button>
+
+    <small>
+      Usuário: admin | Senha: 123
+    </small>
+
+  </div>
+
+  <div id="app" class="app">
+
+    <aside>
+
+      <h2>AutoTask Z</h2>
+
+      <div class="top-controls">
+
+        <button onclick="toggleTema()">
+          🌙 Tema
+        </button>
+
+        <button onclick="ativarNotificacoes()">
+          🔔 Alertas
+        </button>
+
+      </div>
+
+      <button onclick="mostrar('dashboard')">
+        ⚡ Dashboard
+      </button>
+
+      <button onclick="mostrar('tarefas')">
+        📝 Tarefas
+      </button>
+
+      <button onclick="mostrar('alertas')">
+        🚨 Alertas
+      </button>
+
+      <button onclick="mostrar('kanban')">
+        🔥 Kanban
+      </button>
+
+      <button onclick="exportarRelatorio()">
+        📄 Exportar
+      </button>
+
+      <button onclick="sair()">
+        🚪 Sair
+      </button>
+
+    </aside>
+
+    <main>
+
+      <section id="dashboard" class="pagina">
+
+        <h1>Dashboard de Poder</h1>
+
+        <div class="cards">
+
+          <div class="card">
+
+            <span>Total</span>
+
+            <h2 id="totalTarefas">0</h2>
+
+          </div>
+
+          <div class="card">
+
+            <span>Concluídas</span>
+
+            <h2 id="concluidas">0</h2>
+
+          </div>
+
+          <div class="card">
+
+            <span>Pendentes</span>
+
+            <h2 id="pendentes">0</h2>
+
+          </div>
+
+          <div class="card">
+
+            <span>Vencidas</span>
+
+            <h2 id="vencidas">0</h2>
+
+          </div>
+
+        </div>
+
+        <div class="box">
+
+          <h3>Status das tarefas</h3>
+
+          <canvas id="graficoStatus"></canvas>
+
+        </div>
+
+      </section>
+
+      <section id="tarefas" class="pagina">
+
+        <h1>Cadastro de Missões</h1>
+
+        <div class="form">
+
+          <input id="titulo" placeholder="Nome da missão">
+
+          <input id="responsavel" placeholder="Responsável">
+
+          <input id="data" type="date">
+
+          <select id="prioridade">
+
+            <option>Baixa</option>
+
+            <option>Média</option>
+
+            <option>Alta</option>
+
+          </select>
+
+          <button onclick="adicionarTarefa()">
+            Adicionar
+          </button>
+
+        </div>
+
+        <div class="box">
+
+          <h3>Lista de missões</h3>
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>Missão</th>
+
+                <th>Responsável</th>
+
+                <th>Data</th>
+
+                <th>Prioridade</th>
+
+                <th>Status</th>
+
+                <th>Ação</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="listaTarefas"></tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+      <section id="alertas" class="pagina">
+
+        <h1>Radar de Alertas</h1>
+
+        <div id="listaAlertas" class="alertas"></div>
+
+      </section>
+
+      <section id="kanban" class="pagina">
+
+        <h1>Arena Kanban</h1>
+
+        <div class="kanban">
+
+          <div
+            class="coluna"
+            ondrop="soltar(event, 'Pendente')"
+            ondragover="permitirSoltar(event)"
+          >
+
+            <h2>Pendentes</h2>
+
+            <div id="kanbanPendente"></div>
+
+          </div>
+
+          <div
+            class="coluna"
+            ondrop="soltar(event, 'Para hoje')"
+            ondragover="permitirSoltar(event)"
+          >
+
+            <h2>Para Hoje</h2>
+
+            <div id="kanbanHoje"></div>
+
+          </div>
+
+          <div
+            class="coluna"
+            ondrop="soltar(event, 'Concluída')"
+            ondragover="permitirSoltar(event)"
+          >
+
+            <h2>Concluídas</h2>
+
+            <div id="kanbanConcluida"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ASSISTENTE ANIME -->
+
+  <div class="goku-assistente">
+
+    <img
+  class="goku-real"
+  src="https://media.tenor.com/DimzPZMypFcAAAAi/goku-dragon-ball.gif"
+  alt="Goku"
+/>
+
+    <div id="falaAssistente" class="fala-assistente">
+
+      Oi, eu sou o Goku! ⚡
+
     </div>
 
-    <button onclick="mostrar('dashboard')">⚡ Dashboard</button>
-    <button onclick="mostrar('tarefas')">📝 Tarefas</button>
-    <button onclick="mostrar('alertas')">🚨 Alertas</button>
-    <button onclick="mostrar('kanban')">🔥 Kanban</button>
-    <button onclick="exportarRelatorio()">📄 Exportar</button>
-    <button onclick="sair()">🚪 Sair</button>
-  </aside>
+  </div>
 
-  <main>
-    <section id="dashboard" class="pagina">
-      <h1>Dashboard de Poder</h1>
+  <script src="script.js"></script>
 
-      <div class="cards">
-        <div class="card"><span>Total</span><h2 id="totalTarefas">0</h2></div>
-        <div class="card"><span>Concluídas</span><h2 id="concluidas">0</h2></div>
-        <div class="card"><span>Pendentes</span><h2 id="pendentes">0</h2></div>
-        <div class="card"><span>Vencidas</span><h2 id="vencidas">0</h2></div>
-      </div>
-
-      <div class="box">
-        <h3>Status das tarefas</h3>
-        <canvas id="graficoStatus"></canvas>
-      </div>
-    </section>
-
-    <section id="tarefas" class="pagina">
-      <h1>Cadastro de Missões</h1>
-
-      <div class="form">
-        <input id="titulo" placeholder="Nome da missão">
-        <input id="responsavel" placeholder="Responsável">
-        <input id="data" type="date">
-
-        <select id="prioridade">
-          <option>Baixa</option>
-          <option>Média</option>
-          <option>Alta</option>
-        </select>
-
-        <button onclick="adicionarTarefa()">Adicionar</button>
-      </div>
-
-      <div class="box">
-        <h3>Lista de missões</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Missão</th>
-              <th>Responsável</th>
-              <th>Data</th>
-              <th>Prioridade</th>
-              <th>Status</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody id="listaTarefas"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="alertas" class="pagina">
-      <h1>Radar de Alertas</h1>
-      <div id="listaAlertas" class="alertas"></div>
-    </section>
-
-    <section id="kanban" class="pagina">
-      <h1>Arena Kanban</h1>
-
-      <div class="kanban">
-        <div class="coluna" ondrop="soltar(event, 'Pendente')" ondragover="permitirSoltar(event)">
-          <h2>Pendentes</h2>
-          <div id="kanbanPendente"></div>
-        </div>
-
-        <div class="coluna" ondrop="soltar(event, 'Para hoje')" ondragover="permitirSoltar(event)">
-          <h2>Para hoje</h2>
-          <div id="kanbanHoje"></div>
-        </div>
-
-        <div class="coluna" ondrop="soltar(event, 'Concluída')" ondragover="permitirSoltar(event)">
-          <h2>Concluídas</h2>
-          <div id="kanbanConcluida"></div>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-
-<script src="script.js"></script>
 </body>
+
 </html>
