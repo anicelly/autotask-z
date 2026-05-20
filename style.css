@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(circle at top, #ffb703, #fb8500, #111827 70%);
+  color: #111827;
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.login {
+  width: 390px;
+  margin: 100px auto;
+  background: #fff3b0;
+  padding: 35px;
+  border: 4px solid #111827;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 35px #ffea00, 10px 10px 0 #111827;
+}
+
+.login h1,
+aside h2,
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  line-height: 1.5;
+}
+
+.login h1 {
+  font-size: 24px;
+  color: #f97316;
+  text-shadow: 3px 3px 0 #111827;
+}
+
+.login p {
+  margin: 15px 0;
+  font-size: 13px;
+}
+
+.login small {
+  display: block;
+  margin-top: 15px;
+  font-size: 10px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 3px solid #111827;
+  outline: none;
+  background: #fffdf7;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+}
+
+button {
+  cursor: pointer;
+  border: 3px solid #111827;
+  border-radius: 14px;
+  padding: 13px;
+  background: linear-gradient(135deg, #ffea00, #fb8500);
+  color: #111827;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  box-shadow: 4px 4px 0 #111827;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translate(2px, 2px) scale(1.03);
+  box-shadow: 1px 1px 0 #111827;
+}
+
+.app {
+  display: none;
+}
+
+aside {
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #023047, #030712);
+  color: white;
+  position: fixed;
+  padding: 25px;
+  border-right: 5px solid #ffea00;
+  box-shadow: 0 0 30px #219ebc;
+}
+
+aside h2 {
+  color: #ffea00;
+  font-size: 18px;
+  margin-bottom: 25px;
+  text-shadow: 3px 3px 0 #fb8500;
+}
+
+aside button {
+  width: 100%;
+  margin-bottom: 12px;
+  text-align: left;
+  color: white;
+  background: transparent;
+  border-color: #ffea00;
+  font-size: 12px;
+}
+
+aside button:hover {
+  background: #fb8500;
+  color: #111827;
+}
+
+.top-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.top-controls button {
+  flex: 1;
+  font-size: 10px;
+  padding: 10px;
+}
+
+main {
+  margin-left: 260px;
+  padding: 35px;
+}
+
+.pagina {
+  display: none;
+  animation: aura 0.5s ease;
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #ffea00;
+  text-shadow: 4px 4px 0 #111827;
+}
+
+h2,
+h3 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card,
+.box,
+.coluna,
+.alerta {
+  background: #fff3b0;
+  border: 4px solid #111827;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 8px 8px 0 #111827, 0 0 25px #ffea00;
+  margin-bottom: 25px;
+}
+
+.card span {
+  font-size: 12px;
+}
+
+.card h2 {
+  font-size: 38px;
+  color: #fb8500;
+  text-shadow: 2px 2px 0 #111827;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+canvas {
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  border: 3px solid #111827;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fffdf7;
+}
+
+th,
+td {
+  padding: 14px;
+  border: 3px solid #111827;
+  font-size: 12px;
+}
+
+th {
+  background: #ffea00;
+}
+
+.concluida {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.pendente {
+  color: #ca8a04;
+  font-weight: bold;
+}
+
+.vencida {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.alertas {
+  display: grid;
+  gap: 15px;
+}
+
+.alerta.vermelho {
+  border-color: #dc2626;
+  box-shadow: 8px 8px 0 #111827, 0 0 25px #dc2626;
+}
+
+.alerta.amarelo {
+  border-color: #ffea00;
+}
+
+.alerta.verde {
+  border-color: #22c55e;
+}
+
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.coluna {
+  min-height: 400px;
+}
+
+.coluna h2 {
+  margin-bottom: 18px;
+  color: #023047;
+  font-size: 18px;
+}
+
+.kanban-card {
+  background: linear-gradient(135deg, #ffea00, #fb8500);
+  border: 3px solid #111827;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  cursor: grab;
+  box-shadow: 5px 5px 0 #111827;
+}
+
+.kanban-card h3 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.kanban-card p {
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.kanban-card:active {
+  cursor: grabbing;
+}
+
+.dark-mode {
+  background: radial-gradient(circle at top, #023047, #020617, #000);
+  color: #f8fafc;
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode p,
+.dark-mode span,
+.dark-mode small,
+.dark-mode td,
+.dark-mode th {
+  color: #f8fafc;
+}
+
+.dark-mode .card,
+.dark-mode .box,
+.dark-mode .alerta,
+.dark-mode .coluna,
+.dark-mode .login {
+  background: #111827;
+  color: white;
+  border-color: #38bdf8;
+  box-shadow: 0 0 25px #38bdf8;
+}
+
+.dark-mode input,
+.dark-mode select {
+  background: #020617;
+  color: white;
+  border-color: #38bdf8;
+}
+
+.dark-mode input::placeholder {
+  color: #cbd5e1;
+}
+
+.dark-mode table {
+  background: #111827;
+}
+
+.dark-mode th {
+  background: #023047;
+}
+
+.dark-mode .kanban-card {
+  background: linear-gradient(135deg, #023047, #2563eb);
+  color: white;
+  border-color: #38bdf8;
+}
+
+.dark-mode aside {
+  background: linear-gradient(180deg, #020617, #000);
+  border-right-color: #38bdf8;
+}
+
+@keyframes aura {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: brightness(1.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+@media(max-width: 900px) {
+  aside {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  main {
+    margin-left: 0;
+  }
+
+  .cards,
+  .form,
+  .kanban {
+    grid-template-columns: 1fr;
+  }
+
+  .login {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+}
