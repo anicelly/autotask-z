@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Bulma">
+  <rect width="180" height="180" rx="90" fill="#67e8f9"/>
+  <path d="M44 78c2-36 24-56 57-54 29 2 45 22 45 56v42H34V82c0-16 5-28 10-39z" fill="#0e7490" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="90" cy="91" r="43" fill="#ffd7a8" stroke="#111827" stroke-width="6"/>
+  <path d="M48 73c17-31 57-45 91-14-23 1-39-4-53-15-9 15-22 24-38 29z" fill="#0e7490" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="75" cy="93" r="5" fill="#111827"/>
+  <circle cx="105" cy="93" r="5" fill="#111827"/>
+  <path d="M76 116c10 8 20 8 29 0" fill="none" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+  <path d="M47 149h86l18 31H29z" fill="#f43f5e" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M70 149h40l7 31H63z" fill="#fffaf0" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+</svg>

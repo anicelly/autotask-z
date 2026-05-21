@@ -13,7 +13,7 @@ const assistentes = {
     nome: "Goku",
     marca: "悟",
     classe: "assistant-goku",
-    gif: "https://media.giphy.com/media/SPuyENBLQCFCU/giphy.gif",
+    imagem: "assets/assistants/goku.svg",
     saudacao: "Oi, eu sou o Goku. Vamos completar essas missões!",
     mensagens: [
       "Treine o foco: uma missão de cada vez.",
@@ -27,7 +27,7 @@ const assistentes = {
     nome: "Bulma",
     marca: "B",
     classe: "assistant-bulma",
-    gif: "https://media.giphy.com/media/ExKvS1tChstXi/giphy.gif",
+    imagem: "assets/assistants/bulma.svg",
     saudacao: "Bulma na área. Vou deixar esse painel inteligente.",
     mensagens: [
       "Dados organizados deixam qualquer plano mais brilhante.",
@@ -41,7 +41,7 @@ const assistentes = {
     nome: "Kuririn",
     marca: "K",
     classe: "assistant-kuririn",
-    gif: "https://media.giphy.com/media/4piHJbgE0rhxm/giphy.gif",
+    imagem: "assets/assistants/kuririn.svg",
     saudacao: "Kuririn pronto. Pequenas vitórias também contam.",
     mensagens: [
       "Comece pela tarefa menor para ganhar ritmo.",
@@ -55,7 +55,7 @@ const assistentes = {
     nome: "Gohan",
     marca: "悟",
     classe: "assistant-gohan",
-    gif: "https://media.giphy.com/media/kgT9TRLM2SwNtqqhXx/giphy.gif",
+    imagem: "assets/assistants/gohan.svg",
     saudacao: "Gohan aqui. Vamos estudar o plano e agir com calma.",
     mensagens: [
       "Priorize com clareza antes de atacar a lista.",
@@ -69,7 +69,7 @@ const assistentes = {
     nome: "Trunks",
     marca: "T",
     classe: "assistant-trunks",
-    gif: "https://media.giphy.com/media/lfSoh55Ksl1UENjNlT/giphy.gif",
+    imagem: "assets/assistants/trunks.svg",
     saudacao: "Trunks chegou do futuro para salvar seus prazos.",
     mensagens: [
       "Resolver hoje evita uma emergência amanhã.",
@@ -108,7 +108,7 @@ function conectarEventos() {
   document.getElementById("exportButton").addEventListener("click", exportarRelatorio);
   document.getElementById("logoutButton").addEventListener("click", sair);
   document.getElementById("assistantSelect").addEventListener("change", trocarAssistente);
-  document.getElementById("assistantGif").addEventListener("error", usarAvatarFallback);
+  document.getElementById("assistantImage").addEventListener("error", usarAvatarFallback);
 
   document.querySelectorAll("[data-page]").forEach(botao => {
     botao.addEventListener("click", () => mostrar(botao.dataset.page));
@@ -493,12 +493,12 @@ function trocarAssistente(event) {
 function renderizarAssistente() {
   const assistente = assistentes[assistenteAtual];
   const avatar = document.getElementById("assistantAvatar");
-  const gif = document.getElementById("assistantGif");
-  const media = gif.closest(".assistant-media");
+  const imagem = document.getElementById("assistantImage");
+  const media = imagem.closest(".assistant-media");
 
-  media.classList.remove("use-fallback");
-  gif.src = assistente.gif;
-  gif.alt = assistente.nome;
+  media.classList.toggle("use-fallback", !assistente.imagem);
+  imagem.src = assistente.imagem || "";
+  imagem.alt = assistente.nome;
   avatar.className = `assistant-avatar ${assistente.classe}`;
   avatar.textContent = assistente.marca;
   document.getElementById("assistantName").textContent = assistente.nome;

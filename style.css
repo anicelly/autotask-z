@@ -540,7 +540,7 @@ td button {
   height: 92px;
 }
 
-.assistant-gif {
+.assistant-image {
   display: block;
   width: 100%;
   height: 100%;
@@ -567,7 +567,7 @@ td button {
   overflow: hidden;
 }
 
-.assistant-media.use-fallback .assistant-gif {
+.assistant-media.use-fallback .assistant-image {
   display: none;
 }
 

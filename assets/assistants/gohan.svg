@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Gohan">
+  <rect width="180" height="180" rx="90" fill="#7c3aed"/>
+  <path d="M42 72 62 19l18 35 19-44 17 48 23-28 2 48 17-8-8 50H34z" fill="#111827" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="90" cy="93" r="42" fill="#ffd7a8" stroke="#111827" stroke-width="6"/>
+  <path d="M53 77c14-28 42-37 75-23-13 5-27 5-41-1-8 13-19 21-34 24z" fill="#111827" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="75" cy="94" r="5" fill="#111827"/>
+  <circle cx="105" cy="94" r="5" fill="#111827"/>
+  <path d="M79 117c7 5 15 5 22 0" fill="none" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+  <path d="M47 146h86l19 34H28z" fill="#4c1d95" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M64 146h52l11 34H53z" fill="#f8fafc" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+</svg>
