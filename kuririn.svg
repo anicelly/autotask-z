@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Kuririn">
+  <rect width="180" height="180" rx="90" fill="#facc15"/>
+  <circle cx="90" cy="88" r="47" fill="#ffd7a8" stroke="#111827" stroke-width="6"/>
+  <circle cx="69" cy="61" r="5" fill="#b45309"/>
+  <circle cx="90" cy="57" r="5" fill="#b45309"/>
+  <circle cx="111" cy="61" r="5" fill="#b45309"/>
+  <circle cx="75" cy="79" r="5" fill="#b45309"/>
+  <circle cx="105" cy="79" r="5" fill="#b45309"/>
+  <path d="M67 93h16M97 93h16" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+  <path d="M80 116c7 6 14 6 21 0" fill="none" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+  <path d="M49 145h82l20 35H29z" fill="#f97316" stroke="#111827" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="90" cy="160" r="14" fill="#fffaf0" stroke="#111827" stroke-width="5"/>
+</svg>

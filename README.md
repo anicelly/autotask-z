@@ -1,40 +1,50 @@
-# AutoTask Z
+# AutoTask Z PRO
 
-Painel web estático para organizar tarefas, prazos, alertas e fluxo Kanban com uma estética retrô moderna.
+Painel web estático para organizar tarefas, prazos, alertas, fluxo Kanban e automações simples com estética retrô/anime.
 
-## Funcionalidades
+## Preview
 
-- Login demonstrativo
-- Dashboard com indicadores e gráfico
-- Cadastro de tarefas com responsável, prazo e prioridade
-- Lista de tarefas com conclusão, reabertura e exclusão
-- Kanban com drag and drop
-- Assistente virtual selecionável: Goku, Bulma, Kuririn, Gohan e Trunks
-- Alertas para tarefas vencidas e tarefas do dia
-- Tema claro/escuro com preferência salva
-- Exportação de relatório em TXT
-- Persistência local via `localStorage`
-- Layout responsivo
+https://anicelly.github.io/autotask-z/
 
-## Como executar
-
-Abra o arquivo `index.html` no navegador.
-
-Login de demonstração:
+## Login de demonstração
 
 ```txt
 Usuário: admin
 Senha: 123
 ```
 
+## Funcionalidades
+
+- Login demonstrativo
+- Dashboard com indicadores
+- Gráfico com Chart.js
+- Barra de progresso geral
+- Cadastro de tarefas
+- Filtro por busca e status
+- Kanban com drag and drop
+- Assistente virtual: Goku, Bulma, Kuririn, Gohan e Trunks
+- Imagens corrigidas na raiz do projeto
+- Alertas de tarefas vencidas e do dia
+- Tema claro/escuro salvo no navegador
+- Exportação de relatório TXT
+- Backup JSON
+- Persistência via LocalStorage
+- Layout responsivo
+- Tela de carregamento Z PRO
+
 ## Estrutura
 
 ```txt
-autotaskpro/
+autotask-z-pro/
 ├── index.html
 ├── style.css
 ├── script.js
-└── README.md
+├── README.md
+├── goku.gif
+├── bulma.gif
+├── gohan.gif
+├── kuririn.gif
+└── tranks.gif
 ```
 
 ## Tecnologias
@@ -44,3 +54,4 @@ autotaskpro/
 - JavaScript Vanilla
 - Chart.js
 - LocalStorage
+- GitHub Pages

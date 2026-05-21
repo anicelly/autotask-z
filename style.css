@@ -546,10 +546,30 @@ td button {
   height: 100%;
   border: 3px solid var(--line);
   border-radius: 50%;
-  background: var(--surface);
+  background: transparent;
   box-shadow: 3px 3px 0 var(--line);
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
+}
+
+.assistant-media[data-character="goku"] .assistant-image {
+  object-position: center 18%;
+}
+
+.assistant-media[data-character="bulma"] .assistant-image {
+  object-position: center 22%;
+}
+
+.assistant-media[data-character="kuririn"] .assistant-image {
+  object-position: center 28%;
+}
+
+.assistant-media[data-character="gohan"] .assistant-image {
+  object-position: center 20%;
+}
+
+.assistant-media[data-character="trunks"] .assistant-image {
+  object-position: center 18%;
 }
 
 .assistant-avatar {
@@ -724,5 +744,157 @@ td button {
   .assistant-card {
     right: 14px;
     bottom: 14px;
+  }
+}
+
+/* ===== Upgrade AutoTask Z PRO ===== */
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: radial-gradient(circle at top, #ffbf1f, #14213d 62%, #020617);
+  color: #fffaf0;
+  text-align: center;
+  transition: opacity 350ms ease, visibility 350ms ease;
+}
+
+.loader-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-screen img {
+  width: 130px;
+  height: 130px;
+  border: 4px solid #fffaf0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 6px 6px 0 #171717;
+}
+
+.loader-screen h1 {
+  margin: 0;
+  font-family: "Bangers", "Space Grotesk", sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: #ffbf1f;
+  text-shadow: 4px 4px 0 #171717;
+}
+
+.loader-screen p {
+  margin: 0;
+  font-weight: 900;
+}
+
+.loader-bar {
+  width: min(360px, 86vw);
+  height: 18px;
+  border: 3px solid #fffaf0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #020617;
+}
+
+.loader-bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ffbf1f;
+  animation: loadBar 1.4s ease both;
+}
+
+.pro-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 8px 0 12px;
+  padding: 6px 12px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 900;
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.toast {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 1000;
+  max-width: 330px;
+  padding: 12px 14px;
+  border: 3px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  font-weight: 900;
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 220ms ease;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.progress-box {
+  margin-bottom: 22px;
+}
+
+.progress-line {
+  height: 22px;
+  border: 3px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface-strong);
+}
+
+.progress-line span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  transition: width 350ms ease;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.automation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.automation-card p {
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.automation-card button {
+  width: 100%;
+}
+
+@keyframes loadBar {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@media (max-width: 900px) {
+  .filters,
+  .automation-grid {
+    grid-template-columns: 1fr;
   }
 }
