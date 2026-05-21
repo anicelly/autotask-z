@@ -1,278 +1,222 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="description" content="AutoTask Z, um painel retrô para organizar tarefas, alertas e fluxos Kanban.">
   <title>AutoTask Z</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
-
 <body>
+  <div id="login" class="login-view">
+    <form class="login-card" id="loginForm" autocomplete="on">
+      <p class="eyebrow">Central de missões</p>
+      <h1>AutoTask Z</h1>
+      <p>Organize tarefas, prazos e alertas com energia máxima.</p>
 
-  <div id="login" class="login">
+      <label for="usuario">Usuário</label>
+      <input id="usuario" name="usuario" type="text" placeholder="admin" autocomplete="username" required>
 
-    <h1>AutoTask Z</h1>
+      <label for="senha">Senha</label>
+      <input id="senha" name="senha" type="password" placeholder="123" autocomplete="current-password" required>
 
-    <p>Automação com energia máxima ⚡</p>
-
-    <input id="usuario" placeholder="Usuário">
-
-    <input id="senha" type="password" placeholder="Senha">
-
-    <button onclick="entrar()">
-      Entrar
-    </button>
-
-    <small>
-      Usuário: admin | Senha: 123
-    </small>
-
+      <button type="submit">Entrar</button>
+      <small>Demo: admin | 123</small>
+    </form>
   </div>
 
-  <div id="app" class="app">
-
-    <aside>
-
-      <h2>AutoTask Z</h2>
-
-      <div class="top-controls">
-
-        <button onclick="toggleTema()">
-          🌙 Tema
-        </button>
-
-        <button onclick="ativarNotificacoes()">
-          🔔 Alertas
-        </button>
-
+  <div id="app" class="app" aria-hidden="true">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">Z</span>
+        <div>
+          <h2>AutoTask Z</h2>
+          <p>Painel de controle</p>
+        </div>
       </div>
 
-      <button onclick="mostrar('dashboard')">
-        ⚡ Dashboard
-      </button>
+      <label class="assistant-picker" for="assistantSelect">
+        Assistente virtual
+        <select id="assistantSelect">
+          <option value="goku">Goku</option>
+          <option value="bulma">Bulma</option>
+          <option value="kuririn">Kuririn</option>
+          <option value="gohan">Gohan</option>
+          <option value="trunks">Trunks</option>
+        </select>
+      </label>
 
-      <button onclick="mostrar('tarefas')">
-        📝 Tarefas
-      </button>
+      <div class="top-controls">
+        <button type="button" id="themeButton">Tema</button>
+        <button type="button" id="notifyButton">Alertas</button>
+      </div>
 
-      <button onclick="mostrar('alertas')">
-        🚨 Alertas
-      </button>
+      <nav aria-label="Navegação principal">
+        <button type="button" data-page="dashboard" class="nav-button active">Dashboard</button>
+        <button type="button" data-page="tarefas" class="nav-button">Tarefas</button>
+        <button type="button" data-page="alertas" class="nav-button">Alertas</button>
+        <button type="button" data-page="kanban" class="nav-button">Kanban</button>
+      </nav>
 
-      <button onclick="mostrar('kanban')">
-        🔥 Kanban
-      </button>
-
-      <button onclick="exportarRelatorio()">
-        📄 Exportar
-      </button>
-
-      <button onclick="sair()">
-        🚪 Sair
-      </button>
-
+      <div class="sidebar-actions">
+        <button type="button" id="exportButton">Exportar relatório</button>
+        <button type="button" id="logoutButton">Sair</button>
+      </div>
     </aside>
 
     <main>
+      <section id="dashboard" class="pagina active-page" aria-labelledby="dashboardTitle">
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">Visão geral</p>
+            <h1 id="dashboardTitle">Dashboard</h1>
+          </div>
+          <p id="resumoDia" class="page-summary">Carregando dados...</p>
+        </div>
 
-      <section id="dashboard" class="pagina">
-
-        <h1>Dashboard de Poder</h1>
-
-        <div class="cards">
-
-          <div class="card">
-
+        <div class="cards" aria-label="Indicadores de tarefas">
+          <article class="card">
             <span>Total</span>
-
-            <h2 id="totalTarefas">0</h2>
-
-          </div>
-
-          <div class="card">
-
+            <strong id="totalTarefas">0</strong>
+          </article>
+          <article class="card">
             <span>Concluídas</span>
-
-            <h2 id="concluidas">0</h2>
-
-          </div>
-
-          <div class="card">
-
+            <strong id="concluidas">0</strong>
+          </article>
+          <article class="card">
             <span>Pendentes</span>
-
-            <h2 id="pendentes">0</h2>
-
-          </div>
-
-          <div class="card">
-
+            <strong id="pendentes">0</strong>
+          </article>
+          <article class="card danger">
             <span>Vencidas</span>
+            <strong id="vencidas">0</strong>
+          </article>
+        </div>
 
-            <h2 id="vencidas">0</h2>
-
+        <div class="panel chart-panel">
+          <div class="panel-header">
+            <h2>Status das tarefas</h2>
+            <span id="chartHint">Atualizado em tempo real</span>
           </div>
-
+          <canvas id="graficoStatus" aria-label="Gráfico de status das tarefas"></canvas>
         </div>
-
-        <div class="box">
-
-          <h3>Status das tarefas</h3>
-
-          <canvas id="graficoStatus"></canvas>
-
-        </div>
-
       </section>
 
-      <section id="tarefas" class="pagina">
-
-        <h1>Cadastro de Missões</h1>
-
-        <div class="form">
-
-          <input id="titulo" placeholder="Nome da missão">
-
-          <input id="responsavel" placeholder="Responsável">
-
-          <input id="data" type="date">
-
-          <select id="prioridade">
-
-            <option>Baixa</option>
-
-            <option>Média</option>
-
-            <option>Alta</option>
-
-          </select>
-
-          <button onclick="adicionarTarefa()">
-            Adicionar
-          </button>
-
+      <section id="tarefas" class="pagina" aria-labelledby="tarefasTitle">
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">Cadastro</p>
+            <h1 id="tarefasTitle">Tarefas</h1>
+          </div>
         </div>
 
-        <div class="box">
+        <form id="taskForm" class="task-form">
+          <label>
+            Missão
+            <input id="titulo" name="titulo" placeholder="Ex.: Revisar automações" required>
+          </label>
 
-          <h3>Lista de missões</h3>
+          <label>
+            Responsável
+            <input id="responsavel" name="responsavel" placeholder="Nome da pessoa" required>
+          </label>
 
-          <table>
+          <label>
+            Data
+            <input id="data" name="data" type="date" required>
+          </label>
 
-            <thead>
+          <label>
+            Prioridade
+            <select id="prioridade" name="prioridade">
+              <option>Baixa</option>
+              <option>Média</option>
+              <option>Alta</option>
+            </select>
+          </label>
 
-              <tr>
+          <button type="submit">Adicionar</button>
+        </form>
 
-                <th>Missão</th>
-
-                <th>Responsável</th>
-
-                <th>Data</th>
-
-                <th>Prioridade</th>
-
-                <th>Status</th>
-
-                <th>Ação</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody id="listaTarefas"></tbody>
-
-          </table>
-
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Lista de missões</h2>
+            <span id="taskCount">0 itens</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Missão</th>
+                  <th>Responsável</th>
+                  <th>Data</th>
+                  <th>Prioridade</th>
+                  <th>Status</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id="listaTarefas"></tbody>
+            </table>
+          </div>
         </div>
-
       </section>
 
-      <section id="alertas" class="pagina">
-
-        <h1>Radar de Alertas</h1>
-
+      <section id="alertas" class="pagina" aria-labelledby="alertasTitle">
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">Radar</p>
+            <h1 id="alertasTitle">Alertas</h1>
+          </div>
+        </div>
         <div id="listaAlertas" class="alertas"></div>
-
       </section>
 
-      <section id="kanban" class="pagina">
-
-        <h1>Arena Kanban</h1>
+      <section id="kanban" class="pagina" aria-labelledby="kanbanTitle">
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">Fluxo</p>
+            <h1 id="kanbanTitle">Kanban</h1>
+          </div>
+        </div>
 
         <div class="kanban">
-
-          <div
-            class="coluna"
-            ondrop="soltar(event, 'Pendente')"
-            ondragover="permitirSoltar(event)"
-          >
-
+          <section class="coluna" data-drop-status="Pendente">
             <h2>Pendentes</h2>
+            <div id="kanbanPendente" class="kanban-list"></div>
+          </section>
 
-            <div id="kanbanPendente"></div>
+          <section class="coluna" data-drop-status="Para hoje">
+            <h2>Para hoje</h2>
+            <div id="kanbanHoje" class="kanban-list"></div>
+          </section>
 
-          </div>
-
-          <div
-            class="coluna"
-            ondrop="soltar(event, 'Para hoje')"
-            ondragover="permitirSoltar(event)"
-          >
-
-            <h2>Para Hoje</h2>
-
-            <div id="kanbanHoje"></div>
-
-          </div>
-
-          <div
-            class="coluna"
-            ondrop="soltar(event, 'Concluída')"
-            ondragover="permitirSoltar(event)"
-          >
-
+          <section class="coluna" data-drop-status="Concluída">
             <h2>Concluídas</h2>
-
-            <div id="kanbanConcluida"></div>
-
-          </div>
-
+            <div id="kanbanConcluida" class="kanban-list"></div>
+          </section>
         </div>
-
       </section>
-
     </main>
-
   </div>
 
-  <!-- ASSISTENTE ANIME -->
-
-  <div class="goku-assistente">
-
-    <img
-  class="goku-real"
-  src="https://media.tenor.com/DimzPZMypFcAAAAi/goku-dragon-ball.gif"
-  alt="Goku"
-/>
-
-    <div id="falaAssistente" class="fala-assistente">
-
-      Oi, eu sou o Goku! ⚡
-
+  <aside class="assistant-card" aria-live="polite">
+    <div class="assistant-media">
+      <img
+        id="assistantGif"
+        class="assistant-gif"
+        src="https://media.giphy.com/media/SPuyENBLQCFCU/giphy.gif"
+        alt="Goku"
+      >
+      <div id="assistantAvatar" class="assistant-avatar assistant-goku" aria-hidden="true">悟</div>
     </div>
-
-  </div>
-
-  <script src="script.js"></script>
-
+    <div>
+      <strong id="assistantName">Goku</strong>
+      <p id="falaAssistente">Oi, eu sou o Goku. Vamos completar essas missões!</p>
+    </div>
+  </aside>
 </body>
-
 </html>
