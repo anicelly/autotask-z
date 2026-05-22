@@ -13,7 +13,7 @@ const assistentes = {
     nome: "Goku",
     marca: "悟",
     classe: "assistant-goku",
-    imagem: "goku.gif",
+    imagem: "goku.gif.gif",
     saudacao: "Oi, eu sou o Goku. Vamos completar essas missões!",
     mensagens: ["Uma missão de cada vez.", "Missões vencidas precisam de energia máxima.", "Concluir tarefa também é vitória."]
   },
@@ -21,7 +21,7 @@ const assistentes = {
     nome: "Bulma",
     marca: "B",
     classe: "assistant-bulma",
-    imagem: "bulma.gif",
+    imagem: "bulma.gif.gif",
     saudacao: "Bulma na área. Vou deixar esse painel inteligente.",
     mensagens: ["Dados organizados deixam qualquer plano mais brilhante.", "Relatórios ajudam a provar o progresso.", "Tecnologia boa economiza tempo."]
   },
@@ -29,7 +29,7 @@ const assistentes = {
     nome: "Kuririn",
     marca: "K",
     classe: "assistant-kuririn",
-    imagem: "kuririn.gif",
+    imagem: "kuririn.gif.gif",
     saudacao: "Kuririn pronto. Pequenas vitórias também contam.",
     mensagens: ["Comece pela tarefa menor para ganhar ritmo.", "Consistência vence pressão.", "Marcar como concluída dá satisfação."]
   },
@@ -37,7 +37,7 @@ const assistentes = {
     nome: "Gohan",
     marca: "悟",
     classe: "assistant-gohan",
-    imagem: "gohan.gif",
+    imagem: "gohan.gif.gif",
     saudacao: "Gohan aqui. Vamos estudar o plano e agir com calma.",
     mensagens: ["Priorize com clareza.", "Organização também é treino.", "Um bom painel transforma esforço em estratégia."]
   },
@@ -45,7 +45,7 @@ const assistentes = {
     nome: "Trunks",
     marca: "T",
     classe: "assistant-trunks",
-    imagem: "tranks.gif",
+    imagem: "tranks.gif.gif",
     saudacao: "Trunks chegou do futuro para salvar seus prazos.",
     mensagens: ["Resolver hoje evita emergência amanhã.", "O futuro melhora quando o Kanban está limpo.", "Prazos vencidos são prioridade máxima."]
   }
@@ -68,20 +68,20 @@ function iniciarApp() {
 }
 
 function conectarEventos() {
-  byId("loginForm").addEventListener("submit", entrar);
-  byId("taskForm").addEventListener("submit", adicionarTarefa);
-  byId("themeButton").addEventListener("click", toggleTema);
-  byId("notifyButton").addEventListener("click", ativarNotificacoes);
-  byId("exportButton").addEventListener("click", exportarRelatorio);
-  byId("backupButton").addEventListener("click", exportarBackupJSON);
-  byId("logoutButton").addEventListener("click", sair);
-  byId("assistantSelect").addEventListener("change", trocarAssistente);
-  byId("assistantImage").addEventListener("error", usarAvatarFallback);
-  byId("busca").addEventListener("input", listarTarefas);
-  byId("filtroStatus").addEventListener("change", listarTarefas);
-  byId("autoReportButton").addEventListener("click", exportarRelatorio);
-  byId("autoBackupButton").addEventListener("click", exportarBackupJSON);
-  byId("autoRadarButton").addEventListener("click", radarManual);
+  escutar("loginForm", "submit", entrar);
+  escutar("taskForm", "submit", adicionarTarefa);
+  escutar("themeButton", "click", toggleTema);
+  escutar("notifyButton", "click", ativarNotificacoes);
+  escutar("exportButton", "click", exportarRelatorio);
+  escutar("backupButton", "click", exportarBackupJSON);
+  escutar("logoutButton", "click", sair);
+  escutar("assistantSelect", "change", trocarAssistente);
+  escutar("assistantImage", "error", usarAvatarFallback);
+  escutar("busca", "input", listarTarefas);
+  escutar("filtroStatus", "change", listarTarefas);
+  escutar("autoReportButton", "click", exportarRelatorio);
+  escutar("autoBackupButton", "click", exportarBackupJSON);
+  escutar("autoRadarButton", "click", radarManual);
 
   document.querySelectorAll("[data-page]").forEach(botao => {
     botao.addEventListener("click", () => mostrar(botao.dataset.page));
@@ -500,6 +500,7 @@ function tarefasOrdenadas() {
 function encontrarTarefa(id) { return tarefas.find(tarefa => tarefa.id === id); }
 function gerarId(prefixo = "tarefa") { return crypto?.randomUUID ? crypto.randomUUID() : `${prefixo}-${Date.now()}-${Math.random().toString(16).slice(2)}`; }
 function byId(id) { return document.getElementById(id); }
+function escutar(id, evento, handler) { const elemento = byId(id); if (elemento) elemento.addEventListener(evento, handler); }
 function criarCelula(linha, texto) { const celula = document.createElement("td"); celula.textContent = texto; linha.append(celula); return celula; }
 function criarNegrito(texto) { const strong = document.createElement("strong"); strong.textContent = texto; return strong; }
 function classeStatus(status) { if (status === "Concluída") return "concluida"; if (status === "Vencida") return "vencida"; return "pendente"; }

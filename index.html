@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AutoTask Z PRO: painel retrô para tarefas, alertas, Kanban, automações e dashboard." />
-  <title>AutoTask Z PRO</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AutoTask Z, um painel retrô para organizar tarefas, alertas e fluxos Kanban.">
+  <title>AutoTask Z</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div id="loader" class="loader-screen">
-    <img src="goku.gif" alt="Goku carregando" />
-    <h1>AutoTask Z PRO</h1>
-    <p>Carregando central de automações...</p>
-    <div class="loader-bar"><span></span></div>
+  <div id="loader" class="loader-screen" role="status" aria-live="polite">
+    <img src="goku.gif.gif" alt="Goku">
+    <h1>AutoTask Z</h1>
+    <p>Carregando painel de missões...</p>
+    <div class="loader-bar" aria-hidden="true"><span></span></div>
   </div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="toast" class="toast" aria-live="polite"></div>
 
   <div id="login" class="login-view">
     <form class="login-card" id="loginForm" autocomplete="on">
-      <p class="eyebrow">Central de missões PRO</p>
+      <p class="eyebrow">Central de missões</p>
       <h1>AutoTask Z</h1>
-      <span class="pro-badge">Z PRO</span>
-      <p>Organize tarefas, prazos, alertas, Kanban e relatórios com energia máxima.</p>
+      <p>Organize tarefas, prazos e alertas com energia máxima.</p>
 
       <label for="usuario">Usuário</label>
-      <input id="usuario" name="usuario" type="text" placeholder="admin" autocomplete="username" required />
+      <input id="usuario" name="usuario" type="text" placeholder="admin" autocomplete="username" required>
 
       <label for="senha">Senha</label>
-      <input id="senha" name="senha" type="password" placeholder="123" autocomplete="current-password" required />
+      <input id="senha" name="senha" type="password" placeholder="123" autocomplete="current-password" required>
 
       <button type="submit">Entrar</button>
       <small>Demo: admin | 123</small>
@@ -44,7 +43,7 @@
       <div class="brand">
         <span class="brand-mark">Z</span>
         <div>
-          <h2>AutoTask Z PRO</h2>
+          <h2>AutoTask Z</h2>
           <p>Painel de controle</p>
         </div>
       </div>
@@ -74,8 +73,8 @@
       </nav>
 
       <div class="sidebar-actions">
+        <button type="button" id="exportButton">Exportar relatório</button>
         <button type="button" id="backupButton">Backup JSON</button>
-        <button type="button" id="exportButton">Relatório TXT</button>
         <button type="button" id="logoutButton">Sair</button>
       </div>
     </aside>
@@ -90,19 +89,35 @@
           <p id="resumoDia" class="page-summary">Carregando dados...</p>
         </div>
 
-        <div class="progress-box panel">
-          <div class="panel-header">
-            <h2>Progresso geral</h2>
-            <span id="progressoTexto">0%</span>
-          </div>
-          <div class="progress-line"><span id="progressoBarra"></span></div>
-        </div>
+        <span class="pro-badge">AutoTask Z PRO</span>
 
         <div class="cards" aria-label="Indicadores de tarefas">
-          <article class="card"><span>Total</span><strong id="totalTarefas">0</strong></article>
-          <article class="card"><span>Concluídas</span><strong id="concluidas">0</strong></article>
-          <article class="card"><span>Pendentes</span><strong id="pendentes">0</strong></article>
-          <article class="card danger"><span>Vencidas</span><strong id="vencidas">0</strong></article>
+          <article class="card">
+            <span>Total</span>
+            <strong id="totalTarefas">0</strong>
+          </article>
+          <article class="card">
+            <span>Concluídas</span>
+            <strong id="concluidas">0</strong>
+          </article>
+          <article class="card">
+            <span>Pendentes</span>
+            <strong id="pendentes">0</strong>
+          </article>
+          <article class="card danger">
+            <span>Vencidas</span>
+            <strong id="vencidas">0</strong>
+          </article>
+        </div>
+
+        <div class="panel progress-box">
+          <div class="panel-header">
+            <h2>Progresso geral</h2>
+            <span id="progressoTexto">0% concluído</span>
+          </div>
+          <div class="progress-line" aria-hidden="true">
+            <span id="progressoBarra"></span>
+          </div>
         </div>
 
         <div class="panel chart-panel">
@@ -116,27 +131,68 @@
 
       <section id="tarefas" class="pagina" aria-labelledby="tarefasTitle">
         <div class="page-header">
-          <div><p class="eyebrow">Cadastro</p><h1 id="tarefasTitle">Tarefas</h1></div>
+          <div>
+            <p class="eyebrow">Cadastro</p>
+            <h1 id="tarefasTitle">Tarefas</h1>
+          </div>
         </div>
 
         <form id="taskForm" class="task-form">
-          <label>Missão<input id="titulo" name="titulo" placeholder="Ex.: Revisar automações" required /></label>
-          <label>Responsável<input id="responsavel" name="responsavel" placeholder="Nome da pessoa" required /></label>
-          <label>Data<input id="data" name="data" type="date" required /></label>
-          <label>Prioridade<select id="prioridade" name="prioridade"><option>Baixa</option><option>Média</option><option>Alta</option></select></label>
+          <label>
+            Missão
+            <input id="titulo" name="titulo" placeholder="Ex.: Revisar automações" required>
+          </label>
+
+          <label>
+            Responsável
+            <input id="responsavel" name="responsavel" placeholder="Nome da pessoa" required>
+          </label>
+
+          <label>
+            Data
+            <input id="data" name="data" type="date" required>
+          </label>
+
+          <label>
+            Prioridade
+            <select id="prioridade" name="prioridade">
+              <option>Baixa</option>
+              <option>Média</option>
+              <option>Alta</option>
+            </select>
+          </label>
+
           <button type="submit">Adicionar</button>
         </form>
 
-        <div class="filters panel">
-          <label>Buscar missão<input id="busca" placeholder="Digite para filtrar..." /></label>
-          <label>Status<select id="filtroStatus"><option value="Todos">Todos</option><option>Pendente</option><option>Para hoje</option><option>Vencida</option><option>Concluída</option></select></label>
+        <div class="filters" aria-label="Filtros de tarefas">
+          <input id="busca" type="search" placeholder="Buscar missão, responsável, prioridade ou status">
+          <select id="filtroStatus" aria-label="Filtrar por status">
+            <option>Todos</option>
+            <option>Pendente</option>
+            <option>Para hoje</option>
+            <option>Vencida</option>
+            <option>Concluída</option>
+          </select>
         </div>
 
         <div class="panel">
-          <div class="panel-header"><h2>Lista de missões</h2><span id="taskCount">0 itens</span></div>
+          <div class="panel-header">
+            <h2>Lista de missões</h2>
+            <span id="taskCount">0 itens</span>
+          </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Missão</th><th>Responsável</th><th>Data</th><th>Prioridade</th><th>Status</th><th>Ação</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Missão</th>
+                  <th>Responsável</th>
+                  <th>Data</th>
+                  <th>Prioridade</th>
+                  <th>Status</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
               <tbody id="listaTarefas"></tbody>
             </table>
           </div>
@@ -144,25 +200,73 @@
       </section>
 
       <section id="alertas" class="pagina" aria-labelledby="alertasTitle">
-        <div class="page-header"><div><p class="eyebrow">Radar</p><h1 id="alertasTitle">Alertas</h1></div></div>
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">Radar</p>
+            <h1 id="alertasTitle">Alertas</h1>
+          </div>
+        </div>
         <div id="listaAlertas" class="alertas"></div>
       </section>
 
       <section id="kanban" class="pagina" aria-labelledby="kanbanTitle">
-        <div class="page-header"><div><p class="eyebrow">Fluxo</p><h1 id="kanbanTitle">Kanban</h1></div></div>
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">Fluxo</p>
+            <h1 id="kanbanTitle">Kanban</h1>
+          </div>
+        </div>
+
         <div class="kanban">
-          <section class="coluna" data-drop-status="Pendente"><h2>Pendentes</h2><div id="kanbanPendente" class="kanban-list"></div></section>
-          <section class="coluna" data-drop-status="Para hoje"><h2>Para hoje</h2><div id="kanbanHoje" class="kanban-list"></div></section>
-          <section class="coluna" data-drop-status="Concluída"><h2>Concluídas</h2><div id="kanbanConcluida" class="kanban-list"></div></section>
+          <section class="coluna" data-drop-status="Pendente">
+            <h2>Pendentes</h2>
+            <div id="kanbanPendente" class="kanban-list"></div>
+          </section>
+
+          <section class="coluna" data-drop-status="Para hoje">
+            <h2>Para hoje</h2>
+            <div id="kanbanHoje" class="kanban-list"></div>
+          </section>
+
+          <section class="coluna" data-drop-status="Concluída">
+            <h2>Concluídas</h2>
+            <div id="kanbanConcluida" class="kanban-list"></div>
+          </section>
         </div>
       </section>
 
       <section id="automacoes" class="pagina" aria-labelledby="automacoesTitle">
-        <div class="page-header"><div><p class="eyebrow">Z PRO</p><h1 id="automacoesTitle">Automações</h1></div></div>
+        <div class="page-header">
+          <div>
+            <p class="eyebrow">PRO</p>
+            <h1 id="automacoesTitle">Automações</h1>
+          </div>
+        </div>
+
         <div class="automation-grid">
-          <article class="panel automation-card"><h2>Relatório automático</h2><p>Gera TXT com todas as missões atuais.</p><button type="button" id="autoReportButton">Gerar agora</button></article>
-          <article class="panel automation-card"><h2>Backup inteligente</h2><p>Baixa um JSON com as tarefas salvas no navegador.</p><button type="button" id="autoBackupButton">Baixar backup</button></article>
-          <article class="panel automation-card"><h2>Radar de prazos</h2><p>Verifica tarefas vencidas e tarefas de hoje.</p><button type="button" id="autoRadarButton">Verificar</button></article>
+          <article class="panel automation-card">
+            <div class="panel-header">
+              <h2>Relatório</h2>
+            </div>
+            <p>Gere um resumo em TXT com todas as missões, responsáveis, prazos e status.</p>
+            <button type="button" id="autoReportButton">Gerar relatório</button>
+          </article>
+
+          <article class="panel automation-card">
+            <div class="panel-header">
+              <h2>Backup</h2>
+            </div>
+            <p>Baixe suas missões em JSON para guardar ou importar em outra versão do painel.</p>
+            <button type="button" id="autoBackupButton">Baixar backup</button>
+          </article>
+
+          <article class="panel automation-card">
+            <div class="panel-header">
+              <h2>Radar</h2>
+            </div>
+            <p>Confira rapidamente quantas missões estão vencidas ou programadas para hoje.</p>
+            <button type="button" id="autoRadarButton">Rodar radar</button>
+          </article>
         </div>
       </section>
     </main>
@@ -170,10 +274,18 @@
 
   <aside class="assistant-card" aria-live="polite">
     <div class="assistant-media">
-      <img id="assistantImage" class="assistant-image" src="goku.gif" alt="Goku" />
+      <img
+        id="assistantImage"
+        class="assistant-image"
+        src="goku.gif.gif"
+        alt="Goku"
+      >
       <div id="assistantAvatar" class="assistant-avatar assistant-goku" aria-hidden="true">悟</div>
     </div>
-    <div><strong id="assistantName">Goku</strong><p id="falaAssistente">Oi, eu sou o Goku. Vamos completar essas missões!</p></div>
+    <div>
+      <strong id="assistantName">Goku</strong>
+      <p id="falaAssistente">Oi, eu sou o Goku. Vamos completar essas missões!</p>
+    </div>
   </aside>
 </body>
 </html>
